@@ -8,55 +8,53 @@ export const metadata = {
 export default function Page() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-        <Link href="/wissen" className="hover:text-violet-700">Wissen</Link>
+        <Link href="/wissen" className="hover:text-pink-400">Wissen</Link>
         <span>›</span>
-        <span className="text-gray-800">Gender Pension Gap</span>
+        <span className="text-gray-300">Gender Pension Gap</span>
       </div>
 
       <div className="flex gap-3 items-center mb-4">
-        <span className="text-xs bg-violet-50 text-violet-700 px-3 py-1 rounded-full border border-violet-200">Rente</span>
-        <span className="text-xs text-gray-400">6 Min. Lesezeit</span>
+        <span className="text-xs bg-pink-950/50 text-pink-400 px-3 py-1 rounded-full border border-pink-900/50">Rente</span>
+        <span className="text-xs text-gray-600">6 Min. Lesezeit</span>
       </div>
 
-      <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
         Der Gender Pension Gap: Warum Frauen{" "}
         <span className="gradient-text">53% weniger Rente</span> bekommen
       </h1>
 
-      <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+      <p className="text-lg text-gray-400 mb-10 leading-relaxed">
         Wenn Frauen ihre erste Renteninformation in der Post bekommen, ist der Schock oft groß.
         Die Zahlen sind erschreckend niedrig – und das ist kein Zufall, sondern das Ergebnis
         mehrerer struktureller Benachteiligungen.
       </p>
 
-      {/* Key stat */}
-      <div className="bg-gradient-to-br from-violet-600 to-pink-600 rounded-2xl p-8 text-white text-center mb-10">
+      <div className="bg-gradient-to-br from-pink-600 to-pink-900 rounded-2xl p-8 text-white text-center mb-10">
         <div className="text-6xl font-bold mb-2">53%</div>
-        <p className="text-violet-100">
+        <p className="text-pink-200">
           Frauen erhalten im Schnitt 53% weniger gesetzliche Rente als Männer.
           <br />
           <span className="text-sm mt-1 block">(Quelle: BMAS, 2023)</span>
         </p>
       </div>
 
-      <div className="prose prose-gray max-w-none space-y-8">
+      <div className="space-y-8">
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-3">Was ist der Gender Pension Gap?</h2>
-          <p className="text-gray-600 leading-relaxed">
+          <h2 className="text-xl font-bold text-white mb-3">Was ist der Gender Pension Gap?</h2>
+          <p className="text-gray-400 leading-relaxed">
             Der Gender Pension Gap beschreibt den Unterschied in den Rentenansprüchen zwischen Männern
             und Frauen. In Deutschland beträgt er aktuell rund 53% – das bedeutet: Wenn ein Mann
             im Durchschnitt 1.500 € Rente bekommt, erhält die Frau nur ca. 700 €.
           </p>
-          <p className="text-gray-600 leading-relaxed mt-3">
+          <p className="text-gray-400 leading-relaxed mt-3">
             Dieser Gap ist nicht auf einzelne Diskriminierungsvorfälle zurückzuführen, sondern
             auf ein System, das Care-Arbeit nicht angemessen berücksichtigt.
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Die vier Hauptursachen</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Die vier Hauptursachen</h2>
 
           {[
             {
@@ -80,18 +78,18 @@ export default function Page() {
               text: "Pflegerin, Erzieherin, Sekretärin – typische Frauenberufe werden schlechter entlohnt als typische Männerberufe. Das liegt nicht an Leistung, sondern an historisch gewachsenen Lohnstrukturen.",
             },
           ].map((p) => (
-            <div key={p.nr} className="flex gap-4 bg-[#faf9f7] rounded-xl p-5 border border-violet-100">
-              <span className="text-2xl font-bold text-violet-200 shrink-0">{p.nr}</span>
+            <div key={p.nr} className="flex gap-4 bg-[#1a1a1a] rounded-xl p-5 border border-[#2a2a2a]">
+              <span className="text-2xl font-bold text-pink-900 shrink-0">{p.nr}</span>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">{p.titel}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{p.text}</p>
+                <h3 className="font-semibold text-white mb-1">{p.titel}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{p.text}</p>
               </div>
             </div>
           ))}
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-3">Was kannst du konkret tun?</h2>
+          <h2 className="text-xl font-bold text-white mb-3">Was kannst du konkret tun?</h2>
           <div className="space-y-3">
             {[
               "Rentenlücke berechnen: Kenne deine Zahlen. Nutze unseren Rentenlücken-Rechner.",
@@ -102,16 +100,16 @@ export default function Page() {
               "Nicht auf Versorgungsausgleich verlassen: Eigene Rentenansprüche sind die sicherste Absicherung.",
             ].map((item, i) => (
               <div key={i} className="flex gap-3 items-start">
-                <span className="mt-0.5 w-5 h-5 rounded-full bg-violet-600 text-white text-xs flex items-center justify-center shrink-0 font-bold">✓</span>
-                <p className="text-sm text-gray-700 leading-relaxed">{item}</p>
+                <span className="mt-0.5 w-5 h-5 rounded-full bg-pink-500 text-white text-xs flex items-center justify-center shrink-0 font-bold">✓</span>
+                <p className="text-sm text-gray-300 leading-relaxed">{item}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="bg-amber-50 border border-amber-200 rounded-xl p-6">
-          <h3 className="font-bold text-amber-900 mb-2">Das wichtigste Mindset</h3>
-          <p className="text-sm text-amber-800 leading-relaxed">
+        <section className="bg-pink-950/30 border border-pink-900/50 rounded-xl p-6">
+          <h3 className="font-bold text-pink-300 mb-2">Das wichtigste Mindset</h3>
+          <p className="text-sm text-pink-400/80 leading-relaxed">
             Der Gender Pension Gap ist kein persönliches Versagen. Er ist das Ergebnis eines Systems,
             das Care-Arbeit nicht angemessen bewertet. Aber innerhalb dieses Systems kannst du
             aktiv Weichen stellen – und das ist das Ziel dieser Website.
@@ -119,23 +117,22 @@ export default function Page() {
         </section>
       </div>
 
-      {/* CTAs */}
       <div className="mt-12 flex flex-col sm:flex-row gap-4">
         <Link
           href="/rechner/rentenluecke"
-          className="flex-1 text-center px-6 py-3 rounded-full bg-violet-600 text-white font-semibold hover:bg-violet-700 transition-colors"
+          className="flex-1 text-center px-6 py-3 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition-colors"
         >
           Meine Rentenlücke berechnen
         </Link>
         <Link
           href="/wissen"
-          className="flex-1 text-center px-6 py-3 rounded-full bg-white text-violet-700 font-semibold border border-violet-200 hover:bg-violet-50 transition-colors"
+          className="flex-1 text-center px-6 py-3 rounded-full bg-[#1a1a1a] text-pink-400 font-semibold border border-[#2a2a2a] hover:border-pink-800 transition-colors"
         >
           Zurück zum Wissen
         </Link>
       </div>
 
-      <p className="text-xs text-gray-400 mt-8 leading-relaxed">
+      <p className="text-xs text-gray-600 mt-8 leading-relaxed">
         Quellen: Bundesministerium für Arbeit und Soziales (BMAS), Statistisches Bundesamt,
         Deutsches Institut für Wirtschaftsforschung (DIW). Zahlen Stand 2023/2024.
         Kein Ersatz für individuelle Finanzberatung.

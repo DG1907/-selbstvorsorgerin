@@ -68,10 +68,10 @@ export default function Page() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
       <div className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-white">
           Wissen auf <span className="gradient-text">Augenhöhe</span>
         </h1>
-        <p className="text-gray-600 max-w-xl">
+        <p className="text-gray-400 max-w-xl">
           Kein Finanzjargon. Keine Bevormundung. Nur klare Erklärungen für deine Lebenssituation.
         </p>
       </div>
@@ -83,8 +83,8 @@ export default function Page() {
             key={k}
             className={`text-sm px-4 py-1.5 rounded-full border cursor-pointer transition-colors ${
               k === "Alle"
-                ? "bg-violet-600 text-white border-violet-600"
-                : "bg-white text-gray-600 border-gray-200 hover:border-violet-300 hover:text-violet-700"
+                ? "bg-pink-500 text-white border-pink-500"
+                : "bg-[#111111] text-gray-400 border-[#2a2a2a] hover:border-pink-800 hover:text-pink-400"
             }`}
           >
             {k}
@@ -98,21 +98,21 @@ export default function Page() {
           <Link
             key={a.slug}
             href={`/wissen/${a.slug}`}
-            className="bg-white rounded-2xl border border-violet-100 p-6 card-hover flex flex-col group"
+            className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6 card-hover flex flex-col group"
           >
             <div className="flex justify-between items-start mb-4">
               <span className="text-3xl">{a.emoji}</span>
-              <span className="text-xs bg-violet-50 text-violet-700 px-2.5 py-1 rounded-full border border-violet-200">
+              <span className="text-xs bg-pink-950/50 text-pink-400 px-2.5 py-1 rounded-full border border-pink-900/50">
                 {a.kategorie}
               </span>
             </div>
-            <h2 className="text-base font-bold text-gray-900 mb-2 group-hover:text-violet-700 transition-colors leading-snug">
+            <h2 className="text-base font-bold text-white mb-2 group-hover:text-pink-400 transition-colors leading-snug">
               {a.titel}
             </h2>
-            <p className="text-sm text-gray-600 leading-relaxed flex-1">{a.intro}</p>
+            <p className="text-sm text-gray-400 leading-relaxed flex-1">{a.intro}</p>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-400">{a.lesezeit}</span>
-              <span className="text-sm font-semibold text-violet-700 group-hover:text-violet-900">
+              <span className="text-xs text-gray-600">{a.lesezeit}</span>
+              <span className="text-sm font-semibold text-pink-400 group-hover:text-pink-300">
                 Lesen →
               </span>
             </div>
@@ -121,17 +121,17 @@ export default function Page() {
       </div>
 
       {/* Context box */}
-      <div className="mt-16 bg-violet-50 border border-violet-200 rounded-2xl p-8 text-center">
-        <h2 className="text-xl font-bold text-gray-900 mb-2">
+      <div className="mt-16 bg-[#111111] border border-[#2a2a2a] rounded-2xl p-8 text-center">
+        <h2 className="text-xl font-bold text-white mb-2">
           Lieber direkt loslegen?
         </h2>
-        <p className="text-gray-600 text-sm mb-6 max-w-md mx-auto">
+        <p className="text-gray-400 text-sm mb-6 max-w-md mx-auto">
           Statt Artikel zu lesen kannst du auch einfach deinen Zahlen vertrauen –
           unsere Rechner zeigen dir in Minuten, wo du stehst.
         </p>
         <Link
           href="/rechner"
-          className="inline-block px-6 py-2.5 rounded-full bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 transition-colors"
+          className="inline-block px-6 py-2.5 rounded-full bg-pink-500 text-white text-sm font-semibold hover:bg-pink-600 transition-colors"
         >
           Zu den Rechnern
         </Link>

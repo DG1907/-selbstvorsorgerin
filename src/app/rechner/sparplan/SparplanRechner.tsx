@@ -50,11 +50,9 @@ function Slider({
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-baseline">
-        <label className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="text-sm font-bold text-violet-700">
-          {unit === "€"
-            ? formatEur(value)
-            : `${value}${unit}`}
+        <label className="text-sm font-medium text-gray-300">{label}</label>
+        <span className="text-sm font-bold text-pink-400">
+          {unit === "€" ? formatEur(value) : `${value}${unit}`}
         </span>
       </div>
       <input
@@ -64,9 +62,9 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-violet-100 rounded-full appearance-none cursor-pointer accent-violet-600"
+        className="w-full h-2 bg-[#2a2a2a] rounded-full appearance-none cursor-pointer accent-pink-500"
       />
-      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-gray-600">{hint}</p>}
     </div>
   );
 }
@@ -95,7 +93,6 @@ export default function SparplanRechner() {
     const laufzeitMonate = inputs.laufzeit * 12;
     const pauseMonate = inputs.elternzeitPausen * 12;
 
-    // With all contributions
     const mitSparplan = berechneEndkapital(
       inputs.startkapital,
       inputs.monatlicheSparrate,
@@ -103,7 +100,6 @@ export default function SparplanRechner() {
       monatlicheRendite
     );
 
-    // With reduced rate during Elternzeit (only 30% of normal rate due to income loss)
     const mitPause = berechneEndkapital(
       inputs.startkapital,
       inputs.monatlicheSparrate * 0.3,
@@ -117,7 +113,6 @@ export default function SparplanRechner() {
       monatlicheRendite
     );
 
-    // What a man with 18% more income could save
     const mannRente = inputs.monatlicheSparrate * (1 + inputs.gehaltsluecke / 100);
     const mannEndkapital = berechneEndkapital(
       inputs.startkapital,
@@ -140,14 +135,13 @@ export default function SparplanRechner() {
     };
   }, [inputs]);
 
-  const years = Array.from({ length: inputs.laufzeit + 1 }, (_, i) => i);
   const maxVal = Math.max(result.endkapital, result.mannEndkapital, result.endkapitalMitPause);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Inputs */}
-      <div className="bg-white rounded-2xl border border-violet-100 p-6 space-y-6">
-        <h2 className="text-lg font-bold text-gray-900">Dein Sparplan</h2>
+      <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6 space-y-6">
+        <h2 className="text-lg font-bold text-white">Dein Sparplan</h2>
 
         <Slider
           label="Startkapital"
@@ -188,8 +182,8 @@ export default function SparplanRechner() {
           onChange={set("rendite")}
         />
 
-        <div className="border-t border-violet-100 pt-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-700">Frauen-spezifische Faktoren</h3>
+        <div className="border-t border-[#2a2a2a] pt-5 space-y-4">
+          <h3 className="text-sm font-semibold text-gray-400">Frauen-spezifische Faktoren</h3>
           <Slider
             label="Elternzeit (reduzierte Sparrate)"
             value={inputs.elternzeitPausen}
@@ -213,39 +207,37 @@ export default function SparplanRechner() {
 
       {/* Results */}
       <div className="space-y-5">
-        {/* Main result */}
-        <div className="bg-gradient-to-br from-violet-600 to-pink-600 rounded-2xl p-6 text-white">
-          <p className="text-violet-200 text-sm mb-1">Dein Endkapital nach {inputs.laufzeit} Jahren</p>
+        <div className="bg-gradient-to-br from-pink-600 to-pink-900 rounded-2xl p-6 text-white">
+          <p className="text-pink-200 text-sm mb-1">Dein Endkapital nach {inputs.laufzeit} Jahren</p>
           <div className="text-5xl font-bold mb-1">{formatEur(result.endkapital)}</div>
-          <div className="flex gap-4 mt-3 text-sm text-violet-200">
+          <div className="flex gap-4 mt-3 text-sm text-pink-200">
             <span>Eingezahlt: {formatEur(result.einzahlungenGesamt)}</span>
             <span>Zinsen: {formatEur(result.zinsertraege)}</span>
           </div>
         </div>
 
-        {/* Visual bar chart */}
-        <div className="bg-white rounded-2xl border border-violet-100 p-6">
-          <h3 className="text-sm font-semibold text-gray-700 mb-5">Vergleich: Was kostet dich die Situation als Frau?</h3>
+        <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6">
+          <h3 className="text-sm font-semibold text-gray-400 mb-5">Vergleich: Was kostet dich die Situation als Frau?</h3>
           <div className="space-y-4">
             {[
-              { label: "Dein Sparplan", value: result.endkapital, color: "bg-violet-500" },
+              { label: "Dein Sparplan", value: result.endkapital, color: "bg-pink-500" },
               {
                 label: `Mit Elternzeit (${inputs.elternzeitPausen}J. reduziert)`,
                 value: result.endkapitalMitPause,
-                color: "bg-pink-400",
+                color: "bg-pink-800",
               },
               {
                 label: `Vergleichsmann (+${inputs.gehaltsluecke}% Gehalt)`,
                 value: result.mannEndkapital,
-                color: "bg-gray-300",
+                color: "bg-[#3a3a3a]",
               },
             ].map((bar) => (
               <div key={bar.label}>
-                <div className="flex justify-between text-xs text-gray-600 mb-1">
+                <div className="flex justify-between text-xs text-gray-400 mb-1">
                   <span>{bar.label}</span>
-                  <span className="font-semibold">{formatEur(bar.value)}</span>
+                  <span className="font-semibold text-white">{formatEur(bar.value)}</span>
                 </div>
-                <div className="h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-5 bg-[#2a2a2a] rounded-full overflow-hidden">
                   <div
                     className={`h-full ${bar.color} rounded-full transition-all duration-700`}
                     style={{ width: `${(bar.value / maxVal) * 100}%` }}
@@ -256,32 +248,31 @@ export default function SparplanRechner() {
           </div>
         </div>
 
-        {/* Cost breakdown */}
         {inputs.elternzeitPausen > 0 && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-            <p className="text-sm font-semibold text-amber-800 mb-2">
+          <div className="bg-yellow-950/30 border border-yellow-900/50 rounded-2xl p-5">
+            <p className="text-sm font-semibold text-yellow-400 mb-2">
               Was dich die Elternzeit kostet
             </p>
-            <p className="text-2xl font-bold text-amber-900">{formatEur(result.pauseKosten)}</p>
-            <p className="text-xs text-amber-700 mt-1">
+            <p className="text-2xl font-bold text-yellow-300">{formatEur(result.pauseKosten)}</p>
+            <p className="text-xs text-yellow-600 mt-1">
               Entgangenes Endkapital durch {inputs.elternzeitPausen} Jahre reduzierte Sparrate – das ist der Preis, den das System von dir verlangt.
             </p>
           </div>
         )}
 
         {inputs.gehaltsluecke > 0 && (
-          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-5">
-            <p className="text-sm font-semibold text-rose-800 mb-2">
+          <div className="bg-pink-950/30 border border-pink-900/50 rounded-2xl p-5">
+            <p className="text-sm font-semibold text-pink-400 mb-2">
               Was dir der Gender Pay Gap kostet
             </p>
-            <p className="text-2xl font-bold text-rose-900">{formatEur(result.gapKosten)}</p>
-            <p className="text-xs text-rose-700 mt-1">
+            <p className="text-2xl font-bold text-pink-300">{formatEur(result.gapKosten)}</p>
+            <p className="text-xs text-pink-600 mt-1">
               Das ist die Differenz zum Vergleichsmann mit {inputs.gehaltsluecke}% höherem Gehalt – strukturelle Ungleichheit hat einen konkreten Preis.
             </p>
           </div>
         )}
 
-        <p className="text-xs text-gray-400 leading-relaxed">
+        <p className="text-xs text-gray-600 leading-relaxed">
           Modellrechnung zu Bildungszwecken. Renditen der Vergangenheit garantieren keine zukünftigen Ergebnisse.
           Keine individuelle Finanzberatung.
         </p>

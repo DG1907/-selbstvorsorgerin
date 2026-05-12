@@ -13,7 +13,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#faf9f7]/90 backdrop-blur-md border-b border-violet-100">
+    <header className="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#2a2a2a]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <span className="text-2xl font-bold gradient-text">
@@ -27,14 +27,14 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-gray-600 hover:text-violet-700 transition-colors"
+              className="text-sm font-medium text-gray-400 hover:text-pink-400 transition-colors"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="/rechner"
-            className="text-sm font-semibold px-4 py-2 rounded-full bg-violet-600 text-white hover:bg-violet-700 transition-colors"
+            className="text-sm font-semibold px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors"
           >
             Jetzt berechnen
           </Link>
@@ -42,7 +42,7 @@ export default function Header() {
 
         {/* Mobile burger */}
         <button
-          className="md:hidden p-2 rounded-lg hover:bg-violet-50"
+          className="md:hidden p-2 rounded-lg hover:bg-[#1a1a1a]"
           onClick={() => setOpen(!open)}
           aria-label="Menü"
         >
@@ -58,13 +58,13 @@ export default function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-violet-100 bg-[#faf9f7] px-4 py-4 flex flex-col gap-3">
+        <div className="md:hidden border-t border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4 flex flex-col gap-3">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="text-sm font-medium text-gray-700 hover:text-violet-700 py-1"
+              className="text-sm font-medium text-gray-300 hover:text-pink-400 py-1"
             >
               {item.label}
             </Link>
@@ -72,7 +72,7 @@ export default function Header() {
           <Link
             href="/rechner"
             onClick={() => setOpen(false)}
-            className="text-sm font-semibold px-4 py-2 rounded-full bg-violet-600 text-white text-center hover:bg-violet-700"
+            className="text-sm font-semibold px-4 py-2 rounded-full bg-pink-500 text-white text-center hover:bg-pink-600"
           >
             Jetzt berechnen
           </Link>

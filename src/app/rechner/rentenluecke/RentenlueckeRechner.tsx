@@ -52,11 +52,9 @@ function Slider({
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-baseline">
-        <label className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="text-sm font-bold text-violet-700">
-          {unit === "€"
-            ? formatEur(value)
-            : `${value}${unit}`}
+        <label className="text-sm font-medium text-gray-300">{label}</label>
+        <span className="text-sm font-bold text-pink-400">
+          {unit === "€" ? formatEur(value) : `${value}${unit}`}
         </span>
       </div>
       <input
@@ -66,9 +64,9 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-violet-100 rounded-full appearance-none cursor-pointer accent-violet-600"
+        className="w-full h-2 bg-[#2a2a2a] rounded-full appearance-none cursor-pointer accent-pink-500"
       />
-      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-gray-600">{hint}</p>}
     </div>
   );
 }
@@ -94,9 +92,7 @@ export default function RentenlueckeRechner() {
     const aktuellerRentenwert = 39.32;
     const hochrechnungsFaktor = Math.pow(1.015, arbeitsJahreGesamt);
     const geschaetzteRente = rentenEntgeltpunkte * aktuellerRentenwert * hochrechnungsFaktor;
-
     const rentenluecke = Math.max(0, inputs.gewuenschteRente - geschaetzteRente);
-
     const kapitalBedarf = rentenluecke * 12 * 22;
     const sparrate = kapitalBedarf / (effektivVollzeitJahre * 12 * 150);
 
@@ -117,10 +113,10 @@ export default function RentenlueckeRechner() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Inputs */}
-      <div className="bg-white rounded-2xl border border-violet-100 p-6 space-y-6">
-        <h2 className="text-lg font-bold text-gray-900">Deine Situation</h2>
+      <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6 space-y-6">
+        <h2 className="text-lg font-bold text-white">Deine Situation</h2>
 
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
+        <div className="bg-pink-950/30 border border-pink-900/50 rounded-xl p-4 text-sm text-pink-300">
           <strong>Hinweis:</strong> Elternzeit und Teilzeit reduzieren deine Rentenpunkte erheblich – das Ergebnis zeigt dir, wie groß dieser Effekt wirklich ist.
         </div>
 
@@ -178,22 +174,20 @@ export default function RentenlueckeRechner() {
 
       {/* Results */}
       <div className="space-y-5">
-        {/* Main result */}
-        <div className="bg-gradient-to-br from-violet-600 to-pink-600 rounded-2xl p-6 text-white">
-          <p className="text-violet-200 text-sm mb-1">Deine geschätzte gesetzliche Rente</p>
+        <div className="bg-gradient-to-br from-pink-600 to-pink-900 rounded-2xl p-6 text-white">
+          <p className="text-pink-200 text-sm mb-1">Deine geschätzte gesetzliche Rente</p>
           <div className="text-5xl font-bold mb-1">{formatEur(result.geschaetzteRente)}</div>
-          <p className="text-violet-200 text-sm">pro Monat (netto, ca.)</p>
+          <p className="text-pink-200 text-sm">pro Monat (netto, ca.)</p>
         </div>
 
-        {/* Gap */}
-        <div className="bg-white rounded-2xl border border-violet-100 p-6">
+        <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6">
           <div className="flex justify-between items-center mb-3">
-            <p className="font-semibold text-gray-900">Rentenlücke</p>
-            <span className="text-xl font-bold text-pink-600">{formatEur(result.rentenluecke)}/Monat</span>
+            <p className="font-semibold text-white">Rentenlücke</p>
+            <span className="text-xl font-bold text-pink-400">{formatEur(result.rentenluecke)}/Monat</span>
           </div>
-          <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-3 bg-[#2a2a2a] rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-violet-500 to-pink-500 rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-pink-500 to-pink-700 rounded-full transition-all duration-500"
               style={{ width: `${lueckeProzent}%` }}
             />
           </div>
@@ -202,40 +196,37 @@ export default function RentenlueckeRechner() {
           </p>
         </div>
 
-        {/* Effective years */}
-        <div className="bg-white rounded-2xl border border-violet-100 p-6">
+        <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6">
           <p className="text-sm text-gray-500 mb-1">Effektive Vollzeit-Beitragsjahre</p>
-          <p className="text-3xl font-bold text-gray-900">{result.effektivVollzeitJahre} Jahre</p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-3xl font-bold text-white">{result.effektivVollzeitJahre} Jahre</p>
+          <p className="text-xs text-gray-600 mt-1">
             Elternzeit & Teilzeit reduzieren deine Rentenansprüche deutlich
           </p>
         </div>
 
-        {/* Capital needed */}
-        <div className="bg-white rounded-2xl border border-violet-100 p-6">
+        <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6">
           <p className="text-sm text-gray-500 mb-1">Kapital, das du aufbauen solltest</p>
           <p className="text-3xl font-bold gradient-text">{formatEur(result.kapitalBedarf)}</p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-600 mt-1">
             Um die Lücke über ~22 Rentenjahre zu schließen (vereinfacht, ohne Inflation)
           </p>
         </div>
 
-        {/* Suggested savings */}
-        <div className="bg-violet-50 rounded-2xl border border-violet-200 p-6">
-          <p className="text-sm text-violet-700 font-medium mb-1">Empfohlene monatliche Sparrate</p>
-          <p className="text-3xl font-bold text-violet-800">{formatEur(result.monatlicheSparrate)}/Monat</p>
-          <p className="text-xs text-violet-600 mt-2">
+        <div className="bg-pink-950/30 rounded-2xl border border-pink-900/50 p-6">
+          <p className="text-sm text-pink-400 font-medium mb-1">Empfohlene monatliche Sparrate</p>
+          <p className="text-3xl font-bold text-pink-300">{formatEur(result.monatlicheSparrate)}/Monat</p>
+          <p className="text-xs text-pink-500 mt-2">
             Bei 7% p.a. ETF-Rendite (historischer Durchschnitt MSCI World)
           </p>
           <a
             href="/rechner/sparplan"
-            className="mt-4 inline-block text-sm font-semibold text-violet-700 underline underline-offset-2 hover:text-violet-900"
+            className="mt-4 inline-block text-sm font-semibold text-pink-400 underline underline-offset-2 hover:text-pink-300"
           >
             Im Sparplan-Rechner simulieren →
           </a>
         </div>
 
-        <p className="text-xs text-gray-400 leading-relaxed">
+        <p className="text-xs text-gray-600 leading-relaxed">
           Diese Berechnung ist eine vereinfachte Schätzung zu Bildungszwecken. Sie berücksichtigt keine individuellen Steuer-, Sozialabgaben- oder Inflationseffekte. Kein Ersatz für professionelle Finanzberatung.
         </p>
       </div>

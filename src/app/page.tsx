@@ -69,21 +69,21 @@ export default function Home() {
   return (
     <>
       {/* Alert Banner */}
-      <div className="bg-violet-600 text-white text-center text-sm py-2 px-4">
+      <div className="bg-pink-600 text-white text-center text-sm py-2 px-4">
         Frauen erhalten im Schnitt <strong>53% weniger Rente</strong> als Männer. Wir erklären warum – und was du dagegen tun kannst.
       </div>
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
-        <div className="inline-flex items-center gap-2 bg-violet-50 text-violet-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6 border border-violet-200">
+        <div className="inline-flex items-center gap-2 bg-pink-950/60 text-pink-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-6 border border-pink-900/50">
           Speziell für Frauen
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance leading-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-balance leading-tight mb-6 text-white">
           Deine Altersvorsorge{" "}
           <span className="gradient-text">gehört dir</span>
           <br />– nicht dem Zufall
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto text-balance mb-10">
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto text-balance mb-10">
           Vermögensaufbau ist für Frauen schwieriger: Elternzeit, Teilzeit, der Gender Pay Gap –
           all das kostet dich Rente und Kapital. Hier bekommst du die Werkzeuge, um trotzdem
           finanziell unabhängig zu werden.
@@ -91,13 +91,13 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/rechner/rentenluecke"
-            className="px-8 py-3.5 rounded-full bg-violet-600 text-white font-semibold hover:bg-violet-700 transition-colors shadow-lg shadow-violet-200"
+            className="px-8 py-3.5 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition-colors shadow-lg shadow-pink-900/40"
           >
             Meine Rentenlücke berechnen
           </Link>
           <Link
             href="/wissen"
-            className="px-8 py-3.5 rounded-full bg-white text-violet-700 font-semibold border border-violet-200 hover:bg-violet-50 transition-colors"
+            className="px-8 py-3.5 rounded-full bg-[#1a1a1a] text-pink-400 font-semibold border border-[#2a2a2a] hover:border-pink-800 hover:bg-[#1f1f1f] transition-colors"
           >
             Erst informieren
           </Link>
@@ -105,13 +105,13 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="bg-white border-y border-violet-100 py-12">
+      <section className="bg-[#111111] border-y border-[#2a2a2a] py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {stats.map((s) => (
               <div key={s.value} className="text-center">
                 <div className="text-4xl font-bold gradient-text mb-1">{s.value}</div>
-                <div className="text-sm font-semibold text-gray-800 mb-1">{s.label}</div>
+                <div className="text-sm font-semibold text-gray-200 mb-1">{s.label}</div>
                 <div className="text-xs text-gray-500 leading-relaxed">{s.note}</div>
               </div>
             ))}
@@ -122,11 +122,11 @@ export default function Home() {
       {/* Why it's harder for women */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-3">
+          <h2 className="text-3xl font-bold mb-3 text-white">
             Warum Vermögensaufbau für Frauen{" "}
             <span className="gradient-text">schwieriger ist</span>
           </h2>
-          <p className="text-gray-600 max-w-xl mx-auto">
+          <p className="text-gray-400 max-w-xl mx-auto">
             Das ist keine Ausrede – das sind strukturelle Realitäten. Erst wenn wir sie benennen,
             können wir strategisch dagegensteuern.
           </p>
@@ -135,22 +135,22 @@ export default function Home() {
           {challenges.map((c) => (
             <div
               key={c.title}
-              className="bg-white rounded-2xl p-6 border border-violet-100 card-hover"
+              className="bg-[#111111] rounded-2xl p-6 border border-[#2a2a2a] card-hover"
             >
               <div className="text-3xl mb-3">{c.emoji}</div>
-              <h3 className="font-semibold text-gray-900 mb-2">{c.title}</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">{c.text}</p>
+              <h3 className="font-semibold text-white mb-2">{c.title}</h3>
+              <p className="text-sm text-gray-400 leading-relaxed">{c.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features / Tools */}
-      <section className="bg-white border-y border-violet-100 py-20">
+      <section className="bg-[#111111] border-y border-[#2a2a2a] py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">Deine Werkzeuge</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
+            <h2 className="text-3xl font-bold mb-3 text-white">Deine Werkzeuge</h2>
+            <p className="text-gray-400 max-w-xl mx-auto">
               Interaktive Rechner und verständliches Wissen – kostenlos und ohne Anmeldung.
             </p>
           </div>
@@ -158,14 +158,14 @@ export default function Home() {
             {features.map((f) => (
               <div
                 key={f.href}
-                className="bg-[#faf9f7] rounded-2xl p-7 border border-violet-100 card-hover flex flex-col"
+                className="bg-[#0a0a0a] rounded-2xl p-7 border border-[#2a2a2a] card-hover flex flex-col"
               >
                 <div className="text-4xl mb-4">{f.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{f.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed flex-1">{f.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{f.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed flex-1">{f.desc}</p>
                 <Link
                   href={f.href}
-                  className="mt-5 inline-flex items-center text-sm font-semibold text-violet-700 hover:text-violet-900"
+                  className="mt-5 inline-flex items-center text-sm font-semibold text-pink-400 hover:text-pink-300"
                 >
                   {f.cta} →
                 </Link>
@@ -177,17 +177,17 @@ export default function Home() {
 
       {/* CTA */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 text-center">
-        <div className="bg-gradient-to-br from-violet-600 to-pink-600 rounded-3xl p-12 text-white">
+        <div className="bg-gradient-to-br from-pink-600 to-pink-900 rounded-3xl p-12 text-white">
           <h2 className="text-3xl font-bold mb-4">
             Fang heute an – nicht irgendwann
           </h2>
-          <p className="text-violet-100 max-w-md mx-auto mb-8 text-balance">
+          <p className="text-pink-200 max-w-md mx-auto mb-8 text-balance">
             Jedes Jahr, das du wartest, kostet dich Zinseszins. Der beste Zeitpunkt war gestern,
             der zweitbeste ist jetzt.
           </p>
           <Link
             href="/rechner/rentenluecke"
-            className="inline-block px-8 py-3.5 rounded-full bg-white text-violet-700 font-semibold hover:bg-violet-50 transition-colors"
+            className="inline-block px-8 py-3.5 rounded-full bg-white text-pink-700 font-semibold hover:bg-pink-50 transition-colors"
           >
             Rentenlücke berechnen
           </Link>
@@ -196,7 +196,7 @@ export default function Home() {
 
       {/* Disclaimer */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-8 text-center">
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-gray-600">
           Alle Inhalte dienen ausschließlich der allgemeinen Information und stellen keine individuelle Finanzberatung dar.
           Für persönliche Anlageentscheidungen empfehlen wir die Beratung durch eine zugelassene Finanzberaterin.
         </p>

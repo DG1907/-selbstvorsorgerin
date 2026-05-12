@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className={`${geistSans.variable} h-full`}>
-      <body className="min-h-full flex flex-col bg-[#faf9f7] text-[#1c1c2e]">
+      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-[#f5f5f5]">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
