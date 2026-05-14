@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import InfoTooltip from "@/components/InfoTooltip";
 
 interface Inputs {
   startkapital: number;
@@ -9,6 +10,7 @@ interface Inputs {
   rendite: number;
   gehaltsluecke: number;
   elternzeitPausen: number;
+  inflationsRate: number;
 }
 
 const defaults: Inputs = {
@@ -18,6 +20,7 @@ const defaults: Inputs = {
   rendite: 7,
   gehaltsluecke: 18,
   elternzeitPausen: 0,
+  inflationsRate: 2.0,
 };
 
 function formatEur(n: number) {
@@ -69,6 +72,41 @@ function Slider({
   );
 }
 
+function ToggleOption({
+  label,
+  active,
+  onToggle,
+  tooltip,
+  children,
+}: {
+  label: string;
+  active: boolean;
+  onToggle: () => void;
+  tooltip: React.ReactNode;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className={`rounded-xl border p-4 transition-all duration-200 ${active ? "border-pink-500/40 bg-pink-950/20" : "border-[#2a2a2a] bg-[#0d0d0d]"}`}>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <span className="text-sm font-medium text-gray-200 leading-snug">{label}</span>
+          <InfoTooltip content={tooltip} />
+        </div>
+        <button
+          onClick={onToggle}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 flex-shrink-0 ${active ? "bg-pink-500" : "bg-[#3a3a3a]"}`}
+          aria-pressed={active}
+        >
+          <span
+            className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200 ${active ? "translate-x-5" : "translate-x-0"}`}
+          />
+        </button>
+      </div>
+      {active && children && <div className="mt-4 pt-4 border-t border-[#2a2a2a]">{children}</div>}
+    </div>
+  );
+}
+
 function berechneEndkapital(
   startkapital: number,
   monatlicheSparrate: number,
@@ -84,6 +122,8 @@ function berechneEndkapital(
 
 export default function SparplanRechner() {
   const [inputs, setInputs] = useState<Inputs>(defaults);
+  const [withInflation, setWithInflation] = useState(false);
+  const [withTax, setWithTax] = useState(false);
 
   const set = (key: keyof Inputs) => (v: number) =>
     setInputs((prev) => ({ ...prev, [key]: v }));
@@ -124,17 +164,36 @@ export default function SparplanRechner() {
     const einzahlungenGesamt = inputs.startkapital + inputs.monatlicheSparrate * laufzeitMonate;
     const zinsertraege = mitSparplan - einzahlungenGesamt;
 
+    // Steuer: Abgeltungssteuer 26,375% auf Gewinne nach Sparerpauschbetrag
+    const sparerpauschbetrag = 1000 * inputs.laufzeit;
+    const steuerpflichtigeGewinne = Math.max(0, zinsertraege - sparerpauschbetrag);
+    const steuer = steuerpflichtigeGewinne * 0.26375;
+    const nettoEndkapital = mitSparplan - steuer;
+
+    // Inflation: Realer Wert (Kaufkraft)
+    const inflationsFaktor = Math.pow(1 + inputs.inflationsRate / 100, inputs.laufzeit);
+    const realerWert = mitSparplan / inflationsFaktor;
+    const realerNettoWert = nettoEndkapital / inflationsFaktor;
+
+    const basisEndkapital = withTax ? nettoEndkapital : mitSparplan;
+
     return {
       endkapital: Math.round(mitSparplan),
+      endkapitalNetto: Math.round(nettoEndkapital),
+      endkapitalReal: Math.round(withTax ? realerNettoWert : realerWert),
       endkapitalMitPause: Math.round(nachPause),
       mannEndkapital: Math.round(mannEndkapital),
       einzahlungenGesamt: Math.round(einzahlungenGesamt),
       zinsertraege: Math.round(zinsertraege),
+      steuer: Math.round(steuer),
       pauseKosten: Math.round(mitSparplan - nachPause),
       gapKosten: Math.round(mannEndkapital - mitSparplan),
+      basisEndkapital: Math.round(basisEndkapital),
+      inflationsFaktor,
     };
-  }, [inputs]);
+  }, [inputs, withInflation, withTax]);
 
+  const angezeigterWert = withInflation ? result.endkapitalReal : result.basisEndkapital;
   const maxVal = Math.max(result.endkapital, result.mannEndkapital, result.endkapitalMitPause);
 
   return (
@@ -178,7 +237,7 @@ export default function SparplanRechner() {
           max={12}
           step={0.5}
           unit="%"
-          hint="Historischer MSCI World Durchschnitt: ~7% nach Inflation"
+          hint="Historischer MSCI World Durchschnitt: ~7% nominal"
           onChange={set("rendite")}
         />
 
@@ -203,18 +262,114 @@ export default function SparplanRechner() {
             onChange={set("gehaltsluecke")}
           />
         </div>
+
+        {/* Erweiterte Optionen */}
+        <div className="border-t border-[#2a2a2a] pt-5 space-y-3">
+          <h3 className="text-sm font-semibold text-gray-400">Realitäts-Check</h3>
+
+          <ToggleOption
+            label="Inflation berücksichtigen"
+            active={withInflation}
+            onToggle={() => setWithInflation((v) => !v)}
+            tooltip={
+              <div>
+                <p className="font-semibold text-white mb-2">Was ist Inflation?</p>
+                <p className="text-gray-400 text-xs">
+                  Inflation bedeutet, dass Geld mit der Zeit an Kaufkraft verliert. Bei 2% Inflation
+                  pro Jahr ist dein Geld in 30 Jahren nur noch halb so viel wert – du kannst dir
+                  weniger dafür kaufen. Der Rechner zeigt dir den realen Wert in heutiger Kaufkraft.
+                </p>
+                <p className="text-pink-400 text-xs mt-2 font-medium">
+                  Historische Inflation in Deutschland: ca. 2% p.a.
+                </p>
+              </div>
+            }
+          >
+            <Slider
+              label="Inflationsrate"
+              value={inputs.inflationsRate}
+              min={0.5}
+              max={5}
+              step={0.5}
+              unit="%"
+              hint="EZB-Zielrate: 2% p.a."
+              onChange={set("inflationsRate")}
+            />
+          </ToggleOption>
+
+          <ToggleOption
+            label="Zukünftige Steuerbelastung berücksichtigen"
+            active={withTax}
+            onToggle={() => setWithTax((v) => !v)}
+            tooltip={
+              <div>
+                <p className="font-semibold text-white mb-2">Abgeltungssteuer bei ETFs</p>
+                <p className="text-gray-400 text-xs mb-2">
+                  Auf Gewinne aus ETFs fällt die <strong className="text-white">Abgeltungssteuer</strong> an:
+                  25% + 5,5% Solidaritätszuschlag = <strong className="text-pink-400">26,375%</strong> auf
+                  alle Erträge über dem Sparerpauschbetrag.
+                </p>
+                <p className="text-gray-400 text-xs mb-2">
+                  <strong className="text-white">Sparerpauschbetrag:</strong> 1.000€/Jahr (Einzelperson) –
+                  bis zu dieser Grenze sind Gewinne steuerfrei.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  <strong className="text-white">Ertragsanteilbesteuerung</strong> gilt bei privaten
+                  Rentenversicherungen: Nur ein kleiner Anteil der Auszahlung ist steuerpflichtig
+                  (z.B. 17% bei Rentenbeginn mit 67). Dein persönlicher Steuersatz wird darauf angewendet.
+                </p>
+              </div>
+            }
+          />
+        </div>
       </div>
 
       {/* Results */}
       <div className="space-y-5">
         <div className="bg-gradient-to-br from-pink-600 to-pink-900 rounded-2xl p-6 text-white">
-          <p className="text-pink-200 text-sm mb-1">Dein Endkapital nach {inputs.laufzeit} Jahren</p>
-          <div className="text-5xl font-bold mb-1">{formatEur(result.endkapital)}</div>
-          <div className="flex gap-4 mt-3 text-sm text-pink-200">
+          <p className="text-pink-200 text-sm mb-1">
+            {withInflation
+              ? `Realer Wert nach ${inputs.laufzeit} Jahren (Kaufkraft heute)`
+              : `Dein Endkapital nach ${inputs.laufzeit} Jahren`}
+          </p>
+          <div className="text-5xl font-bold mb-1">{formatEur(angezeigterWert)}</div>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-sm text-pink-200">
             <span>Eingezahlt: {formatEur(result.einzahlungenGesamt)}</span>
             <span>Zinsen: {formatEur(result.zinsertraege)}</span>
           </div>
+          {(withTax || withInflation) && (
+            <div className="mt-3 pt-3 border-t border-pink-400/30 flex flex-wrap gap-x-4 gap-y-1 text-xs text-pink-300">
+              {withTax && <span>Steuer abgezogen: {formatEur(result.steuer)}</span>}
+              {withInflation && (
+                <span>Nominal: {formatEur(withTax ? result.endkapitalNetto : result.endkapital)}</span>
+              )}
+            </div>
+          )}
         </div>
+
+        {withTax && (
+          <div className="bg-[#111111] rounded-2xl border border-yellow-900/40 p-5">
+            <p className="text-sm font-semibold text-yellow-400 mb-2">Steuerrechnung (ETF)</p>
+            <div className="space-y-1 text-sm">
+              <div className="flex justify-between text-gray-400">
+                <span>Gesamte Gewinne</span>
+                <span className="text-white">{formatEur(result.zinsertraege)}</span>
+              </div>
+              <div className="flex justify-between text-gray-400">
+                <span>Sparerpauschbetrag ({inputs.laufzeit} Jahre × 1.000€)</span>
+                <span className="text-green-400">− {formatEur(Math.min(result.zinsertraege, 1000 * inputs.laufzeit))}</span>
+              </div>
+              <div className="flex justify-between text-gray-400 pt-1 border-t border-[#2a2a2a]">
+                <span>Abgeltungssteuer (26,375%)</span>
+                <span className="text-red-400">− {formatEur(result.steuer)}</span>
+              </div>
+              <div className="flex justify-between font-semibold pt-1 border-t border-[#2a2a2a]">
+                <span className="text-white">Netto-Endkapital</span>
+                <span className="text-pink-400">{formatEur(result.endkapitalNetto)}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="bg-[#111111] rounded-2xl border border-[#2a2a2a] p-6">
           <h3 className="text-sm font-semibold text-gray-400 mb-5">Vergleich: Was kostet dich die Situation als Frau?</h3>
@@ -273,8 +428,8 @@ export default function SparplanRechner() {
         )}
 
         <p className="text-xs text-gray-600 leading-relaxed">
-          Modellrechnung zu Bildungszwecken. Renditen der Vergangenheit garantieren keine zukünftigen Ergebnisse.
-          Keine individuelle Finanzberatung.
+          Modellrechnung zu Bildungszwecken. Steuerberechnung vereinfacht (keine Vorabpauschale, keine Kirchensteuer).
+          Renditen der Vergangenheit garantieren keine zukünftigen Ergebnisse. Keine individuelle Finanzberatung.
         </p>
       </div>
     </div>
