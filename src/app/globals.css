@@ -1,20 +1,15 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
+  --background: #080808;
+  --foreground: #f0f0f0;
   --primary: #ec4899;
   --primary-dark: #be185d;
-  --card: #111111;
-  --card-elevated: #1a1a1a;
-  --border: #2a2a2a;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --card: #0f0f0f;
+  --card-elevated: #161616;
+  --border: #1e1e1e;
 }
 
 body {
@@ -22,23 +17,40 @@ body {
   color: var(--foreground);
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Bessere Schrift-Basis */
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
   .gradient-text {
-    background: linear-gradient(135deg, #ec4899, #f9a8d4);
+    background: linear-gradient(135deg, #ec4899, #f472b6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* Finmarie-style Card: sehr subtiler Border, hover mit pink Glow */
   .card-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
   }
   .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(236, 72, 153, 0.15);
+    box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.2), 0 20px 60px rgba(236, 72, 153, 0.08);
+  }
+
+  /* Section-Label Stil (wie finmarie) */
+  .section-label {
+    color: #ec4899;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 }
