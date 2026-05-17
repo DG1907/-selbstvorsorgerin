@@ -81,23 +81,22 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        {/* Hintergrundbild – Gesicht nach rechts verschoben */}
+        {/* Hintergrundbild – Gesicht links zentriert */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/start.jpg"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "75% center" }}
+          style={{ objectPosition: "30% center" }}
         />
-        {/* Starkes Dunkel links, damit Text lesbar bleibt */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/20" />
-        {/* Extra dunkle linke Hälfte */}
-        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-black/60 to-transparent" />
+        {/* Gradient von links transparent → rechts dunkel */}
+        <div className="absolute inset-0 bg-gradient-to-l from-black/92 via-black/60 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#080808] to-transparent" />
 
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-8 py-24">
-          <div className="max-w-lg">
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-8 py-24 flex justify-end">
+          <div className="max-w-lg text-right">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -135,7 +134,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.55 }}
-              className="flex items-center gap-4 mb-10"
+              className="flex items-center gap-4 mb-10 justify-end"
             >
               <div className="flex -space-x-2.5">
                 {["/images/lisa.jpg", "/images/alison.jpg", "/images/sandra.jpg"].map((src, i) => (
@@ -155,7 +154,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-3"
+              className="flex flex-col sm:flex-row gap-3 justify-end"
             >
               <a
                 href={BOOKING_URL}
