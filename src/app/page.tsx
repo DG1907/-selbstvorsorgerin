@@ -8,6 +8,7 @@ import RisikoRenditeChart from "@/components/RisikoRenditeChart";
 import FrauenProfile from "@/components/FrauenProfile";
 import EinkommensGuide from "@/components/EinkommensGuide";
 import DorisSection from "@/components/DorisSection";
+import ParallaxQuote from "@/components/ParallaxQuote";
 
 const BOOKING_URL = "https://provinzialdorisgreinert.simplybook.it/v2/";
 
@@ -261,6 +262,9 @@ export default function Home() {
 
       {/* ── EINKOMMEN GUIDE ── */}
       <EinkommensGuide />
+
+      {/* ── PARALLAX QUOTE ── */}
+      <ParallaxQuote />
 
       {/* ── DORIS ── */}
       <DorisSection />
