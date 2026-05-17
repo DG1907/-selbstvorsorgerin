@@ -1,8 +1,9 @@
 const CREDENTIALS = [
   { icon: "📅", text: "Seit 1994 in der Versicherungs- und Vorsorgebranche" },
   { icon: "🏆", text: "OMGV Award 2023 für Zielgruppenstrategie" },
+  { icon: "🚀", text: "Initiatorin der #selbstvorsorgerin Kampagne – provinzial- und sparkassenweit ausgerollt" },
   { icon: "👩", text: "Spezialisiert auf Vermögensaufbau & Altersvorsorge für Frauen" },
-  { icon: "📍", text: "Standortleiterin Provinzial · Düsseldorf · bundesweit online" },
+  { icon: "📍", text: "Agenturleiterin Provinzial Geschäftsstelle · Lorettoviertel, Düsseldorf" },
 ];
 
 export default function DorisSection() {
@@ -43,11 +44,15 @@ export default function DorisSection() {
               und ich weiß: Frauen haben dabei besondere Herausforderungen.
               Elternzeit, Teilzeit, Gender Pay Gap. Das kostet Rente und Kapital.
             </p>
-            <p className="text-gray-400 leading-relaxed mb-8">
-              Deshalb habe ich #selbstvorsorgerin gegründet. Mein Ziel: Frauen das
-              Wissen und die Werkzeuge geben, die sie brauchen, um finanziell
+            <p className="text-gray-400 leading-relaxed mb-4">
+              Deshalb habe ich <span className="text-pink-400 font-medium">#selbstvorsorgerin</span> ins
+              Leben gerufen – eine Kampagne, die heute provinzial- und sparkassenweit ausgerollt ist.
+              Mein Ziel: Frauen das Wissen und die Werkzeuge geben, die sie brauchen, um finanziell
               unabhängig zu werden – auf Augenhöhe, ohne Fachchinesisch.
-              Denn die Zukunft ist weiblich.
+            </p>
+            <p className="text-gray-400 leading-relaxed mb-8">
+              Als Agenturleiterin der Provinzial Geschäftsstelle im Düsseldorfer Lorettoviertel
+              berate ich persönlich und bundesweit online.
             </p>
 
             {/* Credentials */}
