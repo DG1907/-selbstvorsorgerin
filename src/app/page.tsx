@@ -9,7 +9,7 @@ import FrauenProfile from "@/components/FrauenProfile";
 import EinkommensGuide from "@/components/EinkommensGuide";
 import DorisSection from "@/components/DorisSection";
 import ParallaxQuote from "@/components/ParallaxQuote";
-import TestimonialQuote from "@/components/TestimonialQuote";
+import ClosingQuote from "@/components/ClosingQuote";
 
 const BOOKING_URL = "https://provinzialdorisgreinert.simplybook.it/v2/";
 
@@ -270,9 +270,6 @@ export default function Home() {
       {/* ── DORIS ── */}
       <DorisSection />
 
-      {/* ── TESTIMONIAL QUOTE ── */}
-      <TestimonialQuote />
-
       {/* ── CTA ── */}
       <AnimatedSection>
         <section className="max-w-5xl mx-auto px-4 sm:px-6 py-28">
@@ -308,6 +305,9 @@ export default function Home() {
           </div>
         </section>
       </AnimatedSection>
+
+      {/* ── CLOSING QUOTE ── */}
+      <ClosingQuote />
 
       {/* ── DISCLAIMER ── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-12 text-center">
