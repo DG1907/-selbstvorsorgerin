@@ -10,6 +10,7 @@ import EinkommensGuide from "@/components/EinkommensGuide";
 import DorisSection from "@/components/DorisSection";
 import ParallaxQuote from "@/components/ParallaxQuote";
 import ClosingQuote from "@/components/ClosingQuote";
+import AltersvorsorgeReformPopup from "@/components/AltersvorsorgeReformPopup";
 
 const BOOKING_URL = "https://provinzialdorisgreinert.simplybook.it/v2/";
 
@@ -192,6 +193,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── ALTERSVORSORGE-REFORM BANNER ── */}
+      <AltersvorsorgeReformPopup />
+
       {/* ── STRATEGIEN ── */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-28">
         <AnimatedSection className="text-center mb-16">
@@ -254,6 +258,29 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── VIDEO ── */}
+      <AnimatedSection>
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20">
+          <div className="text-center mb-10">
+            <p className="text-pink-400 text-sm font-medium uppercase tracking-widest mb-4">Doris erklärt</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Alles auf einen Blick</h2>
+            <p className="text-gray-400 max-w-lg mx-auto">
+              Warum Frauen bei der Altersvorsorge besonders aufpassen müssen – und was du konkret tun kannst.
+            </p>
+          </div>
+          <div className="relative w-full rounded-2xl overflow-hidden border border-white/5 shadow-2xl shadow-black/50"
+               style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/Uhi5-2ZkpLM"
+              title="Doris Greinert – #selbstvorsorgerin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </section>
+      </AnimatedSection>
 
       {/* ── RISIKO-RENDITE CHART ── */}
       <RisikoRenditeChart />

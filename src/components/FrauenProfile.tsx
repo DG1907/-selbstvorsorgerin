@@ -92,13 +92,14 @@ function AvatarFoto({
   typ: string;
 }) {
   return (
-    <div className="relative h-64 w-full rounded-t-2xl overflow-hidden">
+    <div className="relative w-full rounded-t-2xl overflow-hidden" style={{ height: "280px" }}>
       {/* Foto mit Fallback auf Gradient */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={foto}
         alt={`${name}, ${age} Jahre, ${typ}`}
-        className="w-full h-full object-cover object-top"
+        className="w-full h-full object-cover"
+        style={{ objectPosition: "center 15%" }}
         onError={(e) => {
           (e.target as HTMLImageElement).style.display = "none";
           const parent = (e.target as HTMLImageElement).parentElement;
